@@ -24,6 +24,52 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="knorrium.info.popularmovies.MainActivity" />
+        </activity>
+
+
+        <provider
+            android:name=".data.MoviesProvider"
+            android:authorities="knorrium.info.popularmovies"
+            android:exported="false"
+            android:syncable="true" />
+
+        <service android:name=".sync.MoviesAuthenticatorService" >
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+        <service
+            android:name=".sync.MoviesSyncService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter" />
+        </service>
+
+        <activity
+            android:name=".MovieDetailsActivity"
+            android:label="@string/title_activity_movie_details"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="knorrium.info.popularmovies.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
