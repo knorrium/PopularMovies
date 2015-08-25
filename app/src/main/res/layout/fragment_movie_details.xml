@@ -1,0 +1,53 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.vitornovictor.popularmovies.ui.MovieDetailFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Movie Title"
+            android:textSize="@dimen/text_size_large"/>
+
+        <TextView
+            android:id="@+id/release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movie_title"
+            android:text="Release Year"
+            android:textSize="@dimen/text_size_medium"/>
+
+        <TextView
+            android:id="@+id/vote_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/poster"
+            android:layout_alignBottom="@+id/poster"
+            android:gravity="center"
+            android:layout_toRightOf="@id/poster"
+            android:text="Average Rating"
+            android:textSize="@dimen/text_size_large"/>
+
+        <ImageView
+            android:id="@+id/poster"
+            android:layout_width="92dp"
+            android:layout_height="138dp"
+            android:layout_below="@+id/release_date"/>
+
+        <TextView
+            android:id="@+id/movie_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/poster"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            android:textSize="@dimen/text_size_medium"/>
+    </RelativeLayout>
+</ScrollView>
+
