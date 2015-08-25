@@ -1,16 +1,27 @@
 package knorrium.info.popularmovies;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import knorrium.info.popularmovies.sync.MoviesSyncAdapter;
+import knorrium.info.popularmovies.util.Utility;
+
+public class MainActivity extends AppCompatActivity implements MainActivityFragment.MovieListStateListener {
+
+    private String mSortOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MoviesSyncAdapter.initializeSyncAdapter(this);
+        MoviesSyncAdapter.syncImmediately(this);
     }
 
 
@@ -30,9 +41,41 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String preferredSortOrder = Utility.getPreferredSortOrder(this);
+
+        if (preferredSortOrder != null && !preferredSortOrder.equals(mSortOrder)) {
+            MainActivityFragment fragment = (MainActivityFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_poster_grid);
+            if ( null != fragment ) {
+                fragment.updateSortOrder(mSortOrder);
+            }
+            mSortOrder = preferredSortOrder;
+        }
+    }
+
+
+    @Override
+    public void onMovieSelected(Uri movieUri) {
+        openMovieDetailActivity(movieUri);
+    }
+
+    private void openMovieDetailActivity(Uri movieUri) {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+
+        if (movieUri != null) {
+            intent.setData(movieUri);
+        }
+
+        startActivity(intent);
     }
 }
